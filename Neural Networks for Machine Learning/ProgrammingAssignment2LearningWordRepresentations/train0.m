@@ -1,5 +1,5 @@
 % This function trains a neural network language model.
-function [model] = train(epochs,learning_rate,momentum,numhid1,numhid2)
+function [model] = train(epochs)
 % Inputs:
 %   epochs: Number of epochs to run.
 % Output:
@@ -16,10 +16,10 @@ end
 
 % SET HYPERPARAMETERS HERE.
 batchsize = 100;  % Mini-batch size.
-%learning_rate = 10;  % Learning rate; default = 0.1.
-%momentum = 0.9;  % Momentum; default = 0.9.
-%numhid1 = 5;  % Dimensionality of embedding space; default = 50.
-%numhid2 = 100;  % Number of units in hidden layer; default = 200.
+learning_rate = 0;  % Learning rate; default = 0.1.
+momentum = 0.9;  % Momentum; default = 0.9.
+numhid1 = 50;  % Dimensionality of embedding space; default = 50.
+numhid2 = 200;  % Number of units in hidden layer; default = 200.
 init_wt = 0.01;  % Standard deviation of the normal distribution
                  % which is sampled to get the initial weights; default = 0.01
 
@@ -34,9 +34,9 @@ show_validation_CE_after = 1000;
 vocab_size = size(vocab, 2);
 
 % INITIALIZE WEIGHTS AND BIASES.
-word_embedding_weights = init_wt * randn(vocab_size, numhid1);
-embed_to_hid_weights = init_wt * randn(numwords * numhid1, numhid2);
-hid_to_output_weights = init_wt * randn(numhid2, vocab_size);
+word_embedding_weights = init_wt * zeros(vocab_size, numhid1);
+embed_to_hid_weights = init_wt * zeros(numwords * numhid1, numhid2);
+hid_to_output_weights = init_wt * zeros(numhid2, vocab_size);
 hid_bias = zeros(numhid2, 1);
 output_bias = zeros(vocab_size, 1);
 
